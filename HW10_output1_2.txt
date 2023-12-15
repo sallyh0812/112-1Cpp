@@ -1,0 +1,261 @@
+1 A B C D
+2 A B C D
+3 A B C D
+4 A B C D
+5 A B C D
+6 A B C D
+7 A B C D
+
+Please choose a seat: 1A
+1 X B C D
+2 A B C D
+3 A B C D
+4 A B C D
+5 A B C D
+6 A B C D
+7 A B C D
+
+Please choose a seat: 1B
+1 X X C D
+2 A B C D
+3 A B C D
+4 A B C D
+5 A B C D
+6 A B C D
+7 A B C D
+
+Please choose a seat: 1C
+1 X X X D
+2 A B C D
+3 A B C D
+4 A B C D
+5 A B C D
+6 A B C D
+7 A B C D
+
+Please choose a seat: 1D
+1 X X X X
+2 A B C D
+3 A B C D
+4 A B C D
+5 A B C D
+6 A B C D
+7 A B C D
+
+Please choose a seat: 2A
+1 X X X X
+2 X B C D
+3 A B C D
+4 A B C D
+5 A B C D
+6 A B C D
+7 A B C D
+
+Please choose a seat: 2B
+1 X X X X
+2 X X C D
+3 A B C D
+4 A B C D
+5 A B C D
+6 A B C D
+7 A B C D
+
+Please choose a seat: 2C
+1 X X X X
+2 X X X D
+3 A B C D
+4 A B C D
+5 A B C D
+6 A B C D
+7 A B C D
+
+Please choose a seat: 2D
+1 X X X X
+2 X X X X
+3 A B C D
+4 A B C D
+5 A B C D
+6 A B C D
+7 A B C D
+
+Please choose a seat: 3A
+1 X X X X
+2 X X X X
+3 X B C D
+4 A B C D
+5 A B C D
+6 A B C D
+7 A B C D
+
+Please choose a seat: 3B
+1 X X X X
+2 X X X X
+3 X X C D
+4 A B C D
+5 A B C D
+6 A B C D
+7 A B C D
+
+Please choose a seat: 3C
+1 X X X X
+2 X X X X
+3 X X X D
+4 A B C D
+5 A B C D
+6 A B C D
+7 A B C D
+
+Please choose a seat: 3D
+1 X X X X
+2 X X X X
+3 X X X X
+4 A B C D
+5 A B C D
+6 A B C D
+7 A B C D
+
+Please choose a seat: 4A
+1 X X X X
+2 X X X X
+3 X X X X
+4 X B C D
+5 A B C D
+6 A B C D
+7 A B C D
+
+Please choose a seat: 4B
+1 X X X X
+2 X X X X
+3 X X X X
+4 X X C D
+5 A B C D
+6 A B C D
+7 A B C D
+
+Please choose a seat: 4C
+1 X X X X
+2 X X X X
+3 X X X X
+4 X X X D
+5 A B C D
+6 A B C D
+7 A B C D
+
+Please choose a seat: 4D
+1 X X X X
+2 X X X X
+3 X X X X
+4 X X X X
+5 A B C D
+6 A B C D
+7 A B C D
+
+Please choose a seat: 5A
+1 X X X X
+2 X X X X
+3 X X X X
+4 X X X X
+5 X B C D
+6 A B C D
+7 A B C D
+
+Please choose a seat: 5B
+1 X X X X
+2 X X X X
+3 X X X X
+4 X X X X
+5 X X C D
+6 A B C D
+7 A B C D
+
+Please choose a seat: 5C
+1 X X X X
+2 X X X X
+3 X X X X
+4 X X X X
+5 X X X D
+6 A B C D
+7 A B C D
+
+Please choose a seat: 5D
+1 X X X X
+2 X X X X
+3 X X X X
+4 X X X X
+5 X X X X
+6 A B C D
+7 A B C D
+
+Please choose a seat: 6A
+1 X X X X
+2 X X X X
+3 X X X X
+4 X X X X
+5 X X X X
+6 X B C D
+7 A B C D
+
+Please choose a seat: 6B
+1 X X X X
+2 X X X X
+3 X X X X
+4 X X X X
+5 X X X X
+6 X X C D
+7 A B C D
+
+Please choose a seat: 6C
+1 X X X X
+2 X X X X
+3 X X X X
+4 X X X X
+5 X X X X
+6 X X X D
+7 A B C D
+
+Please choose a seat: 6D
+1 X X X X
+2 X X X X
+3 X X X X
+4 X X X X
+5 X X X X
+6 X X X X
+7 A B C D
+
+Please choose a seat: 7A
+1 X X X X
+2 X X X X
+3 X X X X
+4 X X X X
+5 X X X X
+6 X X X X
+7 X B C D
+
+Please choose a seat: 7B
+1 X X X X
+2 X X X X
+3 X X X X
+4 X X X X
+5 X X X X
+6 X X X X
+7 X X C D
+
+Please choose a seat: 7C
+1 X X X X
+2 X X X X
+3 X X X X
+4 X X X X
+5 X X X X
+6 X X X X
+7 X X X D
+
+Please choose a seat: 7D
+1 X X X X
+2 X X X X
+3 X X X X
+4 X X X X
+5 X X X X
+6 X X X X
+7 X X X X
+
+All seats are occupied!
