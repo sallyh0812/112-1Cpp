@@ -4,10 +4,10 @@
 #include <string>
 #include <vector>
 #include <cmath>
-#define MAX 2147483647
+#define MAX 100000
 using namespace std;
 
-void specialNum(vector<int>& special_num);
+void specialNum(vector<int> &special_num);
 bool isSpecialNum(int n);
 int main()
 {
@@ -15,12 +15,6 @@ int main()
     string s, word, num;
     int count;
     specialNum(special_num);
-    for(int i =0;i<special_num.size();i++){
-        if(special_num[i]>=400){
-            break;
-        }
-        cout << special_num[i];
-    }
     cout << "Please enter a string : ";
     cin >> s;
     while (s != "0")
@@ -70,12 +64,13 @@ int main()
         cout << "In the range from 10 to " << stoi(num) << endl;
 
         // determine special number
-        for (int i = 10; i < stoi(num); i++)
+        for (int i = 10; i < special_num.size(); i++)
         {
-            if (isSpecialNum(i))
+            if (special_num[i] >= stoi(num))
             {
-                cout << i << endl;
+                break;
             }
+            cout << special_num[i] << endl;
         }
         cout << "Please enter a string : ";
         cin >> s;
@@ -84,7 +79,7 @@ int main()
     return 0;
 }
 
-void specialNum(vector<int>& special_num)
+void specialNum(vector<int> &special_num)
 {
     for (int i = 0; i < MAX; i++)
     {
