@@ -1,5 +1,5 @@
 #include <bits/stdc++.h>
-#include "concatenate.cpp"
+#include "HW11_2_concatenate.cpp"
 
 using namespace std;
 
@@ -19,8 +19,8 @@ int* concatenate(int* array_1, int* array_2, int size_1, int size_2);
 int main(){
 	for(int i_file = 1; i_file <= file_num; i_file++){
 		// I/O FILE //
-		string input_file_name  = "input2_"  + to_string(i_file) + ".txt";
-		string output_file_name = "output2_" + to_string(i_file) + ".txt";
+		string input_file_name  = "HW11_input2_"  + to_string(i_file) + ".txt";
+		string output_file_name = "HW11_output2_" + to_string(i_file) + ".txt";
 		ifstream input_file (input_file_name);
 		ofstream output_file(output_file_name, ios::out);
 		
