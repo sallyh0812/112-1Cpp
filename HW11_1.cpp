@@ -25,8 +25,8 @@ int main()
 {
     ifstream inStream;
     ofstream outStream;
-    inStream.open("HW11_input1_2.txt");
-    outStream.open("HW11_output1_2.txt");
+    inStream.open("input1.txt");
+    outStream.open("output1.txt");
     string target, delimiter;
     getline(inStream, target);
     getline(inStream, delimiter);
