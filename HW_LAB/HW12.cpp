@@ -45,6 +45,7 @@ int main()
             break;
         }
         get(arr, row, column, desired_row, desired_col);
+        delete[] arr;
     }
 
     return 0;
