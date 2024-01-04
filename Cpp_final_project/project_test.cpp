@@ -2,7 +2,9 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
+#include <vector>
 #include <iomanip>
+#include <cmath>
 using namespace std;
 
 #define FILEIN "pika.ppm"
@@ -119,30 +121,57 @@ void constfilterTrans(int **img, int **new_img, int height, int width, int filte
 
 void midValueTrans(int **img, int **new_img, int height, int width, int filter_size, ofstream &out)
 {
-    int *temp = new int[filter_size * filter_size];
-
     for (int y = 0; y < height; y++)
     {
         for (int x = 0; x < width; x++)
         {
+            vector<int> temp;
             for (int i = 0; i < filter_size; i++)
             {
                 for (int j = 0; j < filter_size; j++)
                 {
-                    temp[i * filter_size + j] = img[y + i][x + j];
+                    temp.push_back(img[y + i][x + j]);
                 }
             }
-            sort(temp, temp + (filter_size * filter_size));
+            sort(temp.begin(), temp.end());
             new_img[y][x] = temp[filter_size * filter_size / 2];
             out << new_img[y][x] << " ";
         }
         out << endl;
     }
-    delete[] temp;
-    temp = NULL;
 }
 
-void grayStretch(int **img, int **new_img, int height, int width, int fa, int fb, int ga, int gb)
+void alphaTrimmedMean(int **img, int **new_img, int height, int width, int filter_size, int alpha, ofstream &out)
+{
+    int discard = alpha / 2, sum;
+
+    for (int y = 0; y < height; y++)
+    {
+        for (int x = 0; x < width; x++)
+        {
+            vector<int> temp;
+            for (int i = 0; i < filter_size; i++)
+            {
+                for (int j = 0; j < filter_size; j++)
+                {
+                    temp.push_back(img[y + i][x + j]);
+                }
+            }
+            sort(temp.begin(), temp.end());
+            sum = 0;
+            for (int i = discard; i < filter_size * filter_size - discard; i++)
+            {
+                sum += temp[i];
+            }
+            // Assign the mean value to the output pixel
+            new_img[y][x] = sum / (filter_size * filter_size - discard * 2);
+            out << new_img[y][x] << " ";
+        }
+        out << endl;
+    }
+}
+
+void grayStretch(int **img, int **new_img, int height, int width, int fa, int fb, int ga, int gb, ofstream &out)
 {
     for (int y = 0; y < height; y++)
     {
@@ -161,7 +190,9 @@ void grayStretch(int **img, int **new_img, int height, int width, int fa, int fb
             {
                 new_img[y][x] = gb + (255 - gb) / (255 - fb) * img[y][x];
             }
+            out << new_img[y][x] << " ";
         }
+        out << endl;
     }
 }
 
@@ -232,6 +263,53 @@ void displayHQ(int **img, int height, int width)
     //  asciiFile.close();
 }
 
+void histogramEqualization(int **img, int **new_img, int height, int width, ofstream &out)
+{
+    vector<int> darkness(256);
+    vector<float> cdf(256);
+    vector<int> newDarkness(256);
+    int minValue = 255, maxValue = 0;
+    for (int y = 0; y < height; y++)
+    {
+        for (int x = 0; x < width; x++)
+        {
+            if (img[y][x] < minValue)
+            {
+                minValue = img[y][x];
+            }
+            if (img[y][x] > maxValue)
+            {
+                maxValue = img[y][x];
+            }
+            darkness[img[y][x]] += 1;
+        }
+    }
+
+    cdf[0] = (darkness[0] / float(height * width));
+    for (int i = 1; i < 256; i++)
+    {
+        //out << darkness[i] << " ";
+        cdf[i] = darkness[i] / float(height * width) + cdf[i - 1];
+        //out << cdf[i] <<" ";+
+    }
+    out << endl;
+    for (int i = 0; i < 256; i++)
+    {
+        newDarkness[i] = int(round(255 * (cdf[i] - cdf[minValue]) / (cdf[maxValue] - cdf[minValue])));
+        //out << newDarkness[i] <<" ";
+    }
+
+    for (int y = 0; y < height; y++)
+    {
+        for (int x = 0; x < width; x++)
+        {
+            new_img[y][x] = newDarkness[img[y][x]];
+            out << new_img[y][x] << " ";
+        }
+        out << endl;
+    }
+}
+
 int main()
 {
     ifstream inFile;
@@ -266,13 +344,15 @@ int main()
         inFile >> max_value;
 
         cout << "What do you want? (-1 to end)" << endl;
-        cout << "(1)box filter (2)const filter (3)mid value tranform (4)gray stretch" << endl;
+        cout << "(1)box filter (2)const filter (3)mid value filter" << endl
+             << "(4)alpha-trimmed mean filter (5)gray stretch (6)histogram equalization" << endl;
         cin >> option;
-        while (option != -1 && (option < 1 || option > 4))
+        while (option != -1 && (option < 1 || option > 6))
         {
             cout << "Not valid option." << endl;
             cout << "What do you want?" << endl;
-            cout << "(1)box filter (2)const filter (3) mid value tranform" << endl;
+            cout << "(1)box filter (2)const filter (3)mid value filter" << endl
+                 << "(4)alpha-trimmed mean filter (5)gray stretch (6)histogram equalization" << endl;
             cin >> option;
         }
         if (option == -1)
@@ -286,7 +366,7 @@ int main()
             new_img[i] = new int[width]();
         }
 
-        if (option >= 1 && option <= 3)
+        if (option >= 1 && option <= 4)
         {
             cout << "Enter your filter size (-1 to end):  ";
             cin >> filter_size;
@@ -323,9 +403,7 @@ int main()
                     {
                         inFile >> img[y][x];
                     }
-                    // cout << img[y][x] << " ";
                 }
-                // cout << endl;
             }
             // display(img, height+fill_0, width+fill_0);
 
@@ -357,9 +435,32 @@ int main()
                 outFile << max_value << endl;
                 midValueTrans(img, new_img, height, width, filter_size, outFile);
             }
+            else if (option == 4)
+            {
+                int alpha;
+                cout << "Enter your alpha parameter (-1 to end):\n";
+                cin >> alpha;
+                while (alpha % 2 == 1 || alpha >= filter_size * filter_size)
+                {
+                    cout << "Alpha should be even and smaller than square of filter size." << endl;
+                    cout << "Enter your alpha parameter (-1 to end):\n";
+                    cin >> alpha;
+                    cin >> alpha;
+                }
+                if (alpha == -1)
+                {
+                    break;
+                }
+
+                out_filepath += "_alphatrimmed_" + to_string(filter_size) + ".ppm";
+                outFile.open(out_filepath);
+                outFile << type << endl;
+                outFile << width << " " << height << endl;
+                outFile << max_value << endl;
+                alphaTrimmedMean(img, new_img, height, width, filter_size, alpha, outFile);
+            }
 
             // delete dynamic array/////////////////////////////////////////////
-
             for (int i = 0; i < height + fill_0; i++)
             {
                 delete[] img[i];
@@ -367,8 +468,14 @@ int main()
             delete[] img;
             img = NULL;
         }
-        else if (option == 4)
+        else if (option == 5) // gray stretch
         {
+            out_filepath += "_graystretch.ppm";
+            outFile.open(out_filepath);
+            outFile << type << endl;
+            outFile << width << " " << height << endl;
+            outFile << max_value << endl;
+
             // initialize dynamic array/////////////////////////////////
             int **img = new int *[height];
             for (int i = 0; i < height; i++)
@@ -400,12 +507,53 @@ int main()
             }
 
             // transform->new_img by gray stretch////////////////////////////////
-            grayStretch(img, new_img, height, width, fa, fb, ga, gb);
+            grayStretch(img, new_img, height, width, fa, fb, ga, gb, outFile);
+
+            ///////////////////////////////////////////////////////////
+            for (int i = 0; i < height; i++)
+            {
+                delete[] img[i];
+            }
+            delete[] img;
+            img = NULL;
+        }
+        else if (option == 6) // histogram equalization
+        {
+            out_filepath += "_he.ppm";
+            outFile.open(out_filepath);
+            outFile << type << endl;
+            outFile << width << " " << height << endl;
+            outFile << max_value << endl;
+
+            // initialize dynamic array/////////////////////////////////
+            int **img = new int *[height];
+            for (int i = 0; i < height; i++)
+            {
+                img[i] = new int[width];
+            }
+
+            // read original->img/////////////////////////////////
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    inFile >> img[y][x];
+                }
+            }
+
+            // transform->new_img by gray stretch////////////////////////////////
+            histogramEqualization(img, new_img, height, width, outFile);
+            ///////////////////////////////////////////////////////////
+            for (int i = 0; i < height; i++)
+            {
+                delete[] img[i];
+            }
+            delete[] img;
+            img = NULL;
         }
 
         // display new/////////////////////////////////////////////
         // asciiFile.open(ACSIIOUT);
-        // display(img, height+fill_0, width+fill_0);
         cout << "How do you want to display your img? (-1 to end)" << endl;
         cout << "(1)low quality (2)mid quality (3) high quality" << endl;
         cin >> display_op;
