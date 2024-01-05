@@ -11,8 +11,9 @@ using namespace std;
 #define FILEOUT "pika_out.ppm"
 #define ACSIIOUT "test_ascii.txt"
 const string LINE = "========================================================================================================================================================";
-const string ASCII_H = "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\\|()1{}[]?-_+~<>i!lI;:,\"^`\'. ";
-const string ASCII_M = "@%#*+=-:. ";
+const string ASCII_H = " .'`^\",:;Il!i><~+_-?][}{1)(|\\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$"; //$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\\|()1{}[]?-_+~<>i!lI;:,\"^`\'. ";
+const string ASCII_M = " .:-=+*#%@";                                                               //"@%#*+=-:. ";
+const int W = 3;
 
 void init()
 {
@@ -206,13 +207,13 @@ void display(int **img, int height, int width)
         {
             if (img[y][x] > 174)
             {
-                cout << setw(1) << '@';
-                // asciiFile <<setw(1) << '@';
+                cout << setw(W) << '@';
+                // asciiFile <<setw(W) << '@';
             }
             else
             {
-                cout << setw(1) << '-';
-                // asciiFile << setw(1) <<'-';
+                cout << setw(W) << '-';
+                // asciiFile << setw(W) <<'-';
             }
         }
         cout << endl;
@@ -232,7 +233,7 @@ void displayMQ(int **img, int height, int width)
     {
         for (int x = 0; x < width; x++)
         {
-            cout << setw(1) << ASCII_M[img[y][x] / unit % ASCII_M.length()];
+            cout << setw(W) << ASCII_M[min(img[y][x] / unit, int(ASCII_M.length() - 1))];
             // asciiFile << ASCII[img[y][x] / UNIT];
         }
         cout << endl;
@@ -252,7 +253,7 @@ void displayHQ(int **img, int height, int width)
     {
         for (int x = 0; x < width; x++)
         {
-            cout << setw(1) << ASCII_H[img[y][x] / unit % ASCII_H.length()];
+            cout << setw(W) << ASCII_H[min(img[y][x] / unit, int(ASCII_H.length() - 1))];
             // asciiFile << ASCII[img[y][x] / UNIT];
         }
         cout << endl;
@@ -288,15 +289,15 @@ void histogramEqualization(int **img, int **new_img, int height, int width, ofst
     cdf[0] = (darkness[0] / float(height * width));
     for (int i = 1; i < 256; i++)
     {
-        //out << darkness[i] << " ";
+        // out << darkness[i] << " ";
         cdf[i] = darkness[i] / float(height * width) + cdf[i - 1];
-        //out << cdf[i] <<" ";+
+        // out << cdf[i] <<" ";+
     }
     out << endl;
     for (int i = 0; i < 256; i++)
     {
         newDarkness[i] = int(round(255 * (cdf[i] - cdf[minValue]) / (cdf[maxValue] - cdf[minValue])));
-        //out << newDarkness[i] <<" ";
+        // out << newDarkness[i] <<" ";
     }
 
     for (int y = 0; y < height; y++)
@@ -435,7 +436,7 @@ int main()
                 outFile << max_value << endl;
                 midValueTrans(img, new_img, height, width, filter_size, outFile);
             }
-            else if (option == 4)
+            else if (option == 4) // alpha-trimmed
             {
                 int alpha;
                 cout << "Enter your alpha parameter (-1 to end):\n";
@@ -452,7 +453,7 @@ int main()
                     break;
                 }
 
-                out_filepath += "_alphatrimmed_" + to_string(filter_size) + ".ppm";
+                out_filepath += "_atm" + to_string(alpha) + "_" + to_string(filter_size) + ".ppm";
                 outFile.open(out_filepath);
                 outFile << type << endl;
                 outFile << width << " " << height << endl;
