@@ -1,9 +1,13 @@
 #include <iostream>
+#include <algorithm>
 using namespace std;
 
 int main()
 {
     int W, L;
+    int max = 0, sum = 0;
+    bool find_zero = false;
+
     cin >> W >> L;
     int matrix[W][L];
     for (int i = 0; i < W; i++)
@@ -14,33 +18,56 @@ int main()
         }
     }
 
-    int max = 0, sum = 0;
-    bool find_zero = false;
-    for (int size = 2; size < min(W, L); size++)
+    if (W <= 1)
     {
-        for (int i = 0; i < W - size + 1; i++)
+        for (int i = 0; i < L; i++)
         {
-            for (int j = 0; j < L - size + 1; j++)
+            if (matrix[0][i] > max)
             {
-                sum = 0;
-                find_zero = false;
-                for (int is = 0; is < size; is++)
+                max = matrix[0][i];
+            }
+        }
+    }
+    else if (L <= 1)
+    {
+        for (int i = 0; i < W; i++)
+        {
+            if (matrix[i][0] > max)
+            {
+                max = matrix[i][0];
+            }
+        }
+    }
+    else
+    {
+
+        for (int size = 2; size < min(W, L); size++)
+        {
+            for (int i = 0; i < W - size + 1; i++)
+            {
+                for (int j = 0; j < L - size + 1; j++)
                 {
-                    for (int js = 0; js < size; js++)
+                    sum = 0;
+                    find_zero = false;
+                    for (int is = 0; is < size; is++)
                     {
-                        if (matrix[i + is][j+js] == 0)
+                        for (int js = 0; js < size; js++)
                         {
-                            find_zero = true;
+                            if (matrix[i + is][j + js] == 0)
+                            {
+                                find_zero = true;
+                            }
+                            sum += matrix[i + is][j + js];
                         }
-                        sum += matrix[i + is][j+js];
                     }
-                }
-                if(!find_zero && sum > max){
-                    max = sum;
+                    if (!find_zero && sum > max)
+                    {
+                        max = sum;
+                    }
                 }
             }
         }
     }
-    cout << max <<endl;
+    cout << max << endl;
     return 0;
 }
