@@ -18,7 +18,7 @@ int main()
     while (size != 0)
     {
         int *alien = new int[size];
-        cout << "Please enter 5 elements for the alien nymbers array:\n";
+        cout << "Please enter 5 elements for the alien numbers array:\n";
         for (int i = 0; i < size; i++)
         {
             cout << "Element " << i + 1 << ": ";
