@@ -344,7 +344,8 @@ int main()
         inFile >> width >> height;
         inFile >> max_value;
 
-        cout << "What do you want? (-1 to end)" << endl;
+        cout << endl
+             << "What do you want? (-1 to end)" << endl;
         cout << "(1)box filter (2)const filter (3)mid value filter" << endl
              << "(4)alpha-trimmed mean filter (5)gray stretch (6)histogram equalization" << endl;
         cin >> option;
@@ -494,11 +495,13 @@ int main()
             }
 
             int fa, fb, ga, gb;
-            cout << "Enter your fa fb ga gb in order (0-255, spererate with space):\n";
+            cout << endl
+                 << "Enter your fa fb ga gb in order (0-255, spererate with space):\n";
             cin >> fa >> fb >> ga >> gb;
             while (fa < 0 || fa > 255 || fb <= fa || fb > 255 || ga < 0 || ga > 255 || gb <= ga || gb > 255)
             {
-                cout << "Value should in the range of 0-255 and fb > fa, gb > ga" << endl;
+                cout << endl
+                     << "Value should in the range of 0-255 and fb > fa, gb > ga" << endl;
                 cout << "Enter your fa fb ga gb in order (0-255, spererate with space):\n";
                 cin >> fa >> fb >> ga >> gb;
             }
@@ -555,7 +558,8 @@ int main()
 
         // display new/////////////////////////////////////////////
         // asciiFile.open(ACSIIOUT);
-        cout << "How do you want to display your img? (-1 to end)" << endl;
+        cout << endl
+             << "How do you want to display your img? (-1 to end)" << endl;
         cout << "(1)low quality (2)mid quality (3) high quality" << endl;
         cin >> display_op;
         while (display_op != -1 && (display_op < 1 || display_op > 3))
