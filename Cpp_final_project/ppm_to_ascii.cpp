@@ -1,17 +1,6 @@
-#ifndef _iomanip_H_
-#define _iomanip_H_
 #include <iomanip>
-#endif
-
-#ifndef _string_H_
-#define _string_H_
 #include <string>
-#endif
-
-#ifndef _iostream_H_
-#define _iostream_H_
 #include <iostream>
-#endif
 
 using namespace std;
 

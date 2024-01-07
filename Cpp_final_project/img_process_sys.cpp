@@ -1,17 +1,6 @@
-#ifndef _string_H_
-#define _string_H_
 #include <string>
-#endif
-
-#ifndef _fstream_H_
-#define _fstream_H_
 #include <fstream>
-#endif
-
-#ifndef _iostream_H_
-#define _iostream_H_
 #include <iostream>
-#endif
 
 #ifndef _ppm_to_ascii_CPP_
 #define _ppm_to_ascii_CPP_
@@ -65,6 +54,7 @@ int main()
     int filter_size, option, fill_0, display_op;
     welcome();
 
+    //main system
     while (true)
     {
         cout << endl

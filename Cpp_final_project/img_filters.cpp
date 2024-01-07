@@ -1,23 +1,8 @@
-#ifndef _string_H_
-#define _string_H_
 #include <string>
-#endif
-
-#ifndef _fstream_H_
-#define _fstream_H_
 #include <fstream>
-#endif
-
-#ifndef _vector_H_
-#define _vector_H_
 #include <vector>
-#endif
-
-#ifndef _math_algorithm_H_
-#define _math_algorithm_H_
 #include <algorithm>
 #include <cmath>
-#endif
 
 using namespace std;
 
