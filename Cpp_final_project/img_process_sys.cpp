@@ -27,7 +27,7 @@ using namespace std;
 
 const string LINE = "=============================================================================================================";
 
-void init()
+void welcome()
 {
     cout << endl
          << LINE << endl
@@ -37,7 +37,7 @@ void init()
          << LINE << endl;
 }
 
-void end()
+void thank()
 {
     cout << endl
          << LINE << endl
@@ -45,6 +45,13 @@ void end()
          << "Thank you!" << endl
          << endl
          << LINE << endl;
+}
+
+void betweenCase()
+{
+    cout << endl
+         << LINE << endl
+         << endl;
 }
 
 int main()
@@ -56,25 +63,26 @@ int main()
 
     /////////////////////////////////////////////////////
     int filter_size, option, fill_0, display_op;
-    init();
+    welcome();
+
     while (true)
     {
         cout << endl
              << "Enter the filepath (-1 to end):\n";
         cin >> in_filepath;
         inFile.open(in_filepath);
-        if (in_filepath == "-1")
-        {
-            break;
-        }
 
-        while (inFile.fail())
+        while (inFile.fail() && in_filepath != "-1")
         {
             cout << "Input file opening failed.\n";
             cout << endl
                  << "Enter the filepath (-1 to end):\n";
             cin >> in_filepath;
             inFile.open(in_filepath);
+        }
+        if (in_filepath == "-1")
+        {
+            break;
         }
 
         out_filepath = in_filepath.substr(0, in_filepath.length() - 4);
@@ -87,19 +95,19 @@ int main()
         cout << "(1)box filter (2)const filter (3)median filter" << endl
              << "(4)alpha-trimmed mean filter (5)gray stretch (6)histogram equalization" << endl;
         cin >> option;
-        if (option == -1)
-        {
-            break;
-        }
-                
-        while ((option < 1 || option > 6))
+
+        while ((option < 1 || option > 6) && option != -1)
         {
             cout << "Not valid option." << endl;
             cout << endl
-                 << "What do you want?" << endl;
+                 << "What do you want? (-1 to end)" << endl;
             cout << "(1)box filter (2)const filter (3)median filter" << endl
                  << "(4)alpha-trimmed mean filter (5)gray stretch (6)histogram equalization" << endl;
             cin >> option;
+        }
+        if (option == -1)
+        {
+            break;
         }
 
         int **new_img = new int *[height];
@@ -113,18 +121,18 @@ int main()
             cout << endl
                  << "Enter your filter size (-1 to end):  ";
             cin >> filter_size;
-            if (filter_size == -1)
-            {
-                break;
-            }
-            while (filter_size == 0 || filter_size % 2 == 0)
+
+            while ((filter_size == 0 || filter_size % 2 == 0) && filter_size != -1)
             {
                 cout << "Filter size must be an odd number and must not be 0." << endl;
                 cout << endl
                      << "Enter your filter size: ";
                 cin >> filter_size;
             }
-
+            if (filter_size == -1)
+            {
+                break;
+            }
             fill_0 = filter_size - 1;
 
             // initialize dynamic array/////////////////////////////////
@@ -345,12 +353,10 @@ int main()
         inFile.close();
         outFile.close();
 
-        cout << endl
-             << LINE << endl
-             << endl;
+        betweenCase();
     }
 
-    end();
+    thank();
 
     /////////////////////////////////////////
     return 0;

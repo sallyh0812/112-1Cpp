@@ -1,3 +1,10 @@
+檔案說明：
+img_process_sys.cpp: 主要系統
+img_filters.cpp: 濾鏡功能函式
+ppm_to_ascii.cpp: 將ppm轉為ascii art的函式
+
+---------------------------------------------------------------------------------
+
 這是一個圖片濾鏡系統，有6種功能可以使用
 盒式濾鏡、恆等濾鏡、中值濾鏡、Alpha-修整平均濾波器、三段線性拉伸、直方圖均衡化
 
@@ -5,10 +12,11 @@
 
 (1) 於終端機依序執行下列指令
 
-1. g++ -std=c++11 img_filter.cpp ppm_to_ascii.cpp -o img_filter
-2. img_filter.exe
+1. g++ -std=c++11 img_process_sys.exe.cpp -o img_process_sys
+2. img_process_sys.exe
 
 (2) 依照提示輸入完整檔案路徑
+ex: ppm_file/pika.ppm
 
 (3) 依照提示設定參數
 
