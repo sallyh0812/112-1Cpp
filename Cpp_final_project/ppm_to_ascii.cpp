@@ -1,14 +1,20 @@
-#include <fstream>
-#include <iostream>
-#include <string>
-#include <algorithm>
-#include <vector>
+#ifndef _iomanip_H_
+#define _iomanip_H_
 #include <iomanip>
-#include <cmath>
-#include "ppm_to_ascii.h"
+#endif
+
+#ifndef _string_H_
+#define _string_H_
+#include <string>
+#endif
+
+#ifndef _iostream_H_
+#define _iostream_H_
+#include <iostream>
+#endif
+
 using namespace std;
 
-const string LINE = "========================================================================================================================================================";
 const string ASCII_H = " .'`^\",:;Il!i><~+_-?][}{1)(|\\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$"; //$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\\|()1{}[]?-_+~<>i!lI;:,\"^`\'. ";
 const string ASCII_M = " .:-=+*#%@";                                                               //"@%#*+=-:. ";
 const int W = 3;
