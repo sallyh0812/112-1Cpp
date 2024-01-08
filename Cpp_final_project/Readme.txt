@@ -2,6 +2,7 @@
 img_process_sys.cpp: 主要系統
 img_filters.cpp: 濾鏡功能函式
 ppm_to_ascii.cpp: 將ppm轉為ascii art的函式
+ppm_file: ppm檔供測試
 
 ---------------------------------------------------------------------------------
 
